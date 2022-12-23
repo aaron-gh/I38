@@ -292,12 +292,12 @@ bindsym \$mod+XF86AudioMute exec --no-startup-id ${i3Path}/scripts/mute-unmute.s
 # Requires playerctl.
 bindsym XF86AudioRaiseVolume exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump
 bindsym XF86AudioLowerVolume exec --no-startup-id ${i3Path}/scripts/music_controler.sh decvol $volumeJump
-bindsym XF86AudioPrev exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev
-bindsym XF86AudioMute exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause
-bindsym XF86AudioPlay exec --no-startup-id ${i3Path}/scripts/music_controler.sh play
-bindsym \$mod+XF86AudioPlay exec --no-startup-id ${i3Path}/scripts/music_controler.sh info
-bindsym XF86AudioStop exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop
-bindsym XF86AudioNext exec --no-startup-id ${i3Path}/scripts/music_controler.sh next
+bindsym XF86AudioPrev exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh prev
+bindsym XF86AudioMute exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh pause
+bindsym XF86AudioPlay exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh play
+bindsym \$mod+XF86AudioPlay exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh info
+bindsym XF86AudioStop exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh stop
+bindsym XF86AudioNext exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh next
 
 # start a terminal
 bindsym \$mod+Return exec i3-sensible-terminal
@@ -397,13 +397,13 @@ bindsym Mod1+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -
 # Music player controls
 # Requires playerctl.
 bindsym Mod1+Shift+equal exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump, mode "default"
-bindsym Mod1+Shift+minus exec --no-startup-id ${i3Path}/scripts/music_controler.sh decvol $volumeJump, mode "default"
-bindsym Mod1+Shift+z exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev, mode "default"
-bindsym Mod1+Shift+c exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause, mode "default"
-bindsym Mod1+Shift+x exec --no-startup-id ${i3Path}/scripts/music_controler.sh play, mode "default"
-bindsym Mod1+Shift+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop, mode "default"
-bindsym Mod1+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh next, mode "default"
-bindsym Mod1+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh info, mode "default"
+bindsym Mod1+Shift+minus exec --no-startup-id  ${i3Path}/scripts/music_controler.sh decvol $volumeJump, mode "default"
+bindsym Mod1+Shift+z exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh prev, mode "default"
+bindsym Mod1+Shift+c exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh pause, mode "default"
+bindsym Mod1+Shift+x exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh play, mode "default"
+bindsym Mod1+Shift+v exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh stop, mode "default"
+bindsym Mod1+Shift+b exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh next, mode "default"
+bindsym Mod1+Shift+u exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh info, mode "default"
 #Check battery status
 bindsym Mod1+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh, mode "default"
 #Check controller battery status
@@ -454,12 +454,12 @@ bindsym \$mod+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 
 # Requires playerctl.
 bindsym \$mod+Shift+equal exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump
 bindsym \$mod+Shift+minus exec --no-startup-id ${i3Path}/scripts/music_controler.sh decvol $volumeJump
-bindsym \$mod+Shift+z exec --no-startup-id ${i3Path}/scripts/music_controler.sh prev
-bindsym \$mod+Shift+c exec --no-startup-id ${i3Path}/scripts/music_controler.sh pause
-bindsym \$mod+Shift+x exec --no-startup-id ${i3Path}/scripts/music_controler.sh play
-bindsym \$mod+Shift+v exec --no-startup-id ${i3Path}/scripts/music_controler.sh stop
-bindsym \$mod+Shift+b exec --no-startup-id ${i3Path}/scripts/music_controler.sh next
-bindsym \$mod+Shift+u exec --no-startup-id ${i3Path}/scripts/music_controler.sh info
+bindsym \$mod+Shift+z exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh prev
+bindsym \$mod+Shift+c exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh pause
+bindsym \$mod+Shift+x exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh play
+bindsym \$mod+Shift+v exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh stop
+bindsym \$mod+Shift+b exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh next
+bindsym \$mod+Shift+u exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh info
 #Check battery status
 bindsym \$mod+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh
 #Check controller battery status
