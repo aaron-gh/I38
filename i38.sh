@@ -372,6 +372,8 @@ if [[ -n "${escapeKey}" ]]; then
     cat << EOF >> ${i3Path}/config
 bindsym $escapeKey mode "ratpoison"
 mode "ratpoison" {
+# Terminal emulator bound to c
+bindsym c exec i3-sensible-terminal, mode "default"
 # Text editor bound to e
 bindsym e exec $textEditor, mode "default"
 # File browser bound to f
