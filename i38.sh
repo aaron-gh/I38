@@ -384,7 +384,8 @@ $(if command -v mumble &> /dev/null ; then
     echo "bindsym m exec $(command -v mumble), mode \"default\""
 fi)
 $(if command -v ocrdesktop &> /dev/null ; then
-    echo "bindsym Print exec $(command -v ocrdesktop), mode \"default\""
+    echo "bindsym Print exec $(command -v ocrdesktop) -b, mode \"default\""
+    echo "bindsym \$mod+r exec $(command -v ocrdesktop) -b, mode \"default\""
 fi)
 $(if command -v pidgin &> /dev/null ; then
     echo "bindsym p exec $(command -v pidgin), mode \"default\""
@@ -441,7 +442,7 @@ $(if command -v mumble &> /dev/null ; then
     echo "bindsym \$mod+m exec $(command -v mumble)"
 fi)
 $(if command -v ocrdesktop &> /dev/null ; then
-    echo "bindsym Print exec $(command -v ocrdesktop)"
+    echo "bindsym Print exec $(command -v ocrdesktop)' -b"
 fi)
 $(if command -v pidgin &> /dev/null ; then
     echo "bindsym \$mod+p exec $(command -v pidgin)"
