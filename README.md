@@ -17,7 +17,6 @@ An uppercase I looks like a 1, 3 from i3, and 8 because the song [We Are 138](ht
 - acpi: [optional] for battery status. It will still work even without this package, but uses it if it is installed.
 - dex: [optional] Alternative method for auto starting applications.
 - clipster: clipboard manager
-- grun: Run application dialog
 - jq: for getting the current workspace
 - libnotify: For sending notifications
 - notification-daemon: To handle notifications
