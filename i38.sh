@@ -10,7 +10,7 @@ i3msg="i3-msg"
 export DIALOGOPTS='--no-lines --visit-items'
 
 # Check to make sure minimum requirements are installed.
-for i in dialog grun jq sgtk-menu yad ; do
+for i in dialog jq sgtk-menu yad ; do
     if ! command -v "$i" &> /dev/null ; then
         missing+=("$i")
     fi
@@ -274,7 +274,7 @@ focus_follows_mouse no
 font pango:monospace 8
 
 # Run dialog
-bindsym \$mod+F2 exec grun
+bindsym \$mod+F2 exec ${i3Path}/scripts/run_dialog.sh
 
 # Clipboard manager
 bindsym \$mod+Control+c exec clipster -s
@@ -418,6 +418,8 @@ bindsym Shift+o exec $(command -v orca) --replace, mode "default"
 bindsym Control+semicolon exec bash -c '$i3msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."', mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym Control+Shift+semicolon exec bash -c '$i3msg -t run_command restart && spd-say -P important -Cw "I3 restarted."', mode "default"
+# Run dialog with exclamation 
+bindsym Shift+exclam exec ${i3Path}/scripts/run_dialog.sh, mode "default"
 # exit i3 (logs you out of your X session)
 bindsym Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && $i3msg -t run_command exit'
 bindsym Escape mode "default"
