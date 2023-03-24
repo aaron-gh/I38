@@ -14,7 +14,7 @@ if ! [[ -d "$historyPath" ]]; then
 fi
 
 if [[ -f "${historyPath}/.history" ]]; then
-    txt="$(yad --entry --editable --title "I38" --text "Execute program or enter file" --button "Open:0" --separator "\n" -- rest "${historyPath}/.history")"
+    txt="$(yad --entry --editable --title "I38" --text "Execute program or enter file" --button "Open:0" --separator "\n" --rest "${historyPath}/.history")"
 else
     txt="$(yad --entry --title "I38" --text "Execute program or enter file" --button "Open:0")"
 fi
