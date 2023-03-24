@@ -156,14 +156,13 @@ done
 
 # Configuration questions
 export i3Mode=$(yesno "Would you like to use ratpoison mode? This behaves more like strychnine, with an escape key followed by keybindings.")
-if [[ $i3Mode -eq 1 ]]; then
-    mod="Mod4"
-fi
 # Prevent setting ratpoison mode key to the same as default mode key
 while [[ "$escapeKey" == "$mod" ]]; do
-    escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z Control+Escape Alt+Escape Control+Space Super)"
-    escapeKey="${escapeKey//Alt/Mod1}"
-    escapeKey="${escapeKey//Super/Mod4}"
+    if [[ $i3Mode -eq 0 ]]; then
+        escapeKey="$(menulist "Ratpoison mode key:" Control+t Control+z Control+Escape Alt+Escape Control+Space Super)"
+        escapeKey="${escapeKey//Alt/Mod1}"
+        escapeKey="${escapeKey//Super/Mod4}"
+    fi
     mod="$(menulist "I3 mod key, for top level bindings:" Alt Control Super)"
     mod="${mod//Alt/Mod1}"
     mod="${mod//Super/Mod4}"
