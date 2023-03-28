@@ -385,7 +385,7 @@ bindsym f exec $fileBrowser, mode "default"
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
 # Kill window bound to k
-bindsym k kill
+bindsym k kill, mode "default"
 $(if command -v mumble &> /dev/null ; then
     echo "# Mumble bound to m"
     echo "bindsym m exec $(command -v mumble), mode \"default\""
