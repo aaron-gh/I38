@@ -433,7 +433,9 @@ bindsym Control+Shift+semicolon exec bash -c '$i3msg -t run_command restart && s
 bindsym Shift+exclam exec ${i3Path}/scripts/run_dialog.sh, mode "default"
 # exit i3 (logs you out of your X session)
 bindsym Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && $i3msg -t run_command exit'
+# Exit ratpoison mode without any action escape or Control+g
 bindsym Escape mode "default"
+bindsym Control+g mode "default"
 }
 
 
