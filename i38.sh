@@ -191,7 +191,7 @@ fi
 webBrowser="$(command -v $webBrowser)"
 # Text editor
 unset programList
-for i in geany gedit kate kwrite l3afpad leafpad libreoffice mousepad pluma ; do
+for i in emacs geany gedit kate kwrite l3afpad leafpad libreoffice mousepad pluma ; do
 if hash ${i/#-/} &> /dev/null ; then
 if [ -n "$programList" ]; then
 programList="$programList $i"
