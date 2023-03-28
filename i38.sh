@@ -273,6 +273,9 @@ focus_follows_mouse no
 # is used in the bar {} block below.
 font pango:monospace 8
 
+# I38 help
+bindsym \$mod+Shift+F1 exec ${i3Path}/scripts/i38-help.sh
+
 # Run dialog
 bindsym \$mod+F2 exec ${i3Path}/scripts/run_dialog.sh
 
@@ -371,6 +374,8 @@ if [[ -n "${escapeKey}" ]]; then
     cat << EOF >> ${i3Path}/config
 bindsym $escapeKey mode "ratpoison"
 mode "ratpoison" {
+# I38 help bound to ?
+bindsym Shift+slash exec ${i3Path}/scripts/i38-help.sh, mode "default"
 # Terminal emulator bound to c
 bindsym c exec i3-sensible-terminal, mode "default"
 # Text editor bound to e
@@ -380,16 +385,20 @@ bindsym f exec $fileBrowser, mode "default"
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
 $(if command -v mumble &> /dev/null ; then
+    # Mumble bound to m
     echo "bindsym m exec $(command -v mumble), mode \"default\""
 fi)
 $(if command -v ocrdesktop &> /dev/null ; then
+    # OCR desktop bound to print screen alternative \$mod+r
     echo "bindsym Print exec $(command -v ocrdesktop) -b, mode \"default\""
     echo "bindsym \$mod+r exec $(command -v ocrdesktop) -b, mode \"default\""
 fi)
 $(if command -v pidgin &> /dev/null ; then
+    # p bound to pidgin
     echo "bindsym p exec $(command -v pidgin), mode \"default\""
 fi)
 $(if command -v transfersh &> /dev/null ; then
+    # t bound to share file with transfer.sh
     echo 'bindsym t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
 fi)
 
