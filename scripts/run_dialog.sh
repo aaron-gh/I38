@@ -21,7 +21,7 @@ fi
 if [[ -z "$txt" ]]; then
     exit 0
 fi
-if [[ "$txt" =~ ^ftp://|http://|https://|www.* ]]; then
+if [[ "$txt" =~ ^ftp://|^http://|^https://|^www.* ]]; then
     xdg-open $txt
     write_history
     exit 0
