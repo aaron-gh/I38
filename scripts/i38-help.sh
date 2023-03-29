@@ -23,6 +23,8 @@ fi
 for i in "${!helpText[@]}" ; do
     helpText[$i]="${helpText[$i]//${configPath}\/scripts\//}"
     helpText[$i]="${helpText[$i]/.sh/}"
+    helpText[$i]="${helpText[$i]/, exec announce*/$'\n'}"
+    helpText[$i]="${helpText[$i]/, exec spd-say*/$'\n'}"
 done
 helpText+=("End of text. Please press Control+Home to jump to the beginning of this document.")
 echo "${helpText[@]}" | yad --text-info --show-cursor --title "I38 help" --button "Close:0" --listen
