@@ -155,7 +155,7 @@ while getopts "${args}" i ; do
 done
 
 # Configuration questions
-export i3Mode=$(yesno "Would you like to use ratpoison mode? This behaves more like strychnine, with an escape key followed by keybindings.")
+export i3Mode=$(yesno "Would you like to use ratpoison mode? This behaves more like strychnine, with an escape key followed by keybindings. (Recommended)")
 # Prevent setting ratpoison mode key to the same as default mode key
 while [[ "$escapeKey" == "$mod" ]]; do
     if [[ $i3Mode -eq 0 ]]; then
