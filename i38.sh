@@ -442,59 +442,6 @@ bindsym Control+g mode "default"
 EOF
 fi
 
-# For those who do not want ratpoison mode.
-if [[ -z "${escapeKey}" ]]; then
-    cat << EOF >> ${i3Path}/config
-# Text editor bound to $mod+e
-bindsym \$mod+e exec $textEditor
-# File browser bound to $mod+f
-bindsym \$mod+f exec $fileBrowser
-# Web browser bound to $mod+w
-bindsym \$mod+w exec $webBrowser
-
-$(if command -v mumble &> /dev/null ; then
-    echo "bindsym \$mod+m exec $(command -v mumble)"
-fi)
-$(if command -v ocrdesktop &> /dev/null ; then
-    echo "bindsym Print exec $(command -v ocrdesktop)' -b"
-fi)
-$(if command -v pidgin &> /dev/null ; then
-    echo "bindsym \$mod+p exec $(command -v pidgin)"
-fi)
-$(if command -v transfersh &> /dev/null ; then
-    echo 'bindsym \$mod+t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"'"
-fi)
-#Keyboard based volume controls using pulseaudio
-bindsym \$mod+Shift+0 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +${volumeJump}% & play -qnG synth 0.03 sin 440
-bindsym \$mod+Shift+9 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -${volumeJump}% & play -qnG synth 0.03 sin 440
-# Music player controls
-# Requires playerctl.
-bindsym \$mod+Shift+equal exec --no-startup-id ${i3Path}/scripts/music_controler.sh incvol $volumeJump
-bindsym \$mod+Shift+minus exec --no-startup-id ${i3Path}/scripts/music_controler.sh decvol $volumeJump
-bindsym \$mod+Shift+z exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh prev
-bindsym \$mod+Shift+c exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh pause
-bindsym \$mod+Shift+x exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh play
-bindsym \$mod+Shift+v exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh stop
-bindsym \$mod+Shift+b exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh next
-bindsym \$mod+Shift+u exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh info
-#Check battery status
-bindsym \$mod+b exec --no-startup-id ${i3Path}/scripts/battery_status.sh
-#Check controller battery status
-bindsym \$mod+g exec ${i3Path}/scripts/game_controler.sh -s
-# Get a list of windows in the current workspace
-bindsym \$mod+apostrophe exec --no-startup-id ${i3Path}/scripts/window_list.sh
-# Restart orca
-bindsym \$mod+Shift+o exec $(command -v orca) --replace
-# reload the configuration file
-bindsym \$mod+Control+semicolon exec bash -c '$i3msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."'
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym \$mod+Control+Shift+semicolon exec bash -c '$i3msg -t run_command restart && spd-say -P important -Cw "I3 restarted."'
-# exit i3 (logs you out of your X session)
-bindsym \$mod+Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && $i3msg -t run_command exit'
-
-
-EOF
-fi
 
 cat << EOF >> ${i3Path}/config
 # Auto start section
