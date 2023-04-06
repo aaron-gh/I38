@@ -493,7 +493,6 @@ bindsym \$mod+Control+Shift+semicolon exec bash -c '$i3msg -t run_command restar
 bindsym \$mod+Control+q exec bash -c 'yad --image "dialog-question" --title "I38" --button=yes:0 --button=no:1 --text "You pressed the exit shortcut. Do you really want to exit i3? This will end your X session." && $i3msg -t run_command exit'
 
 
-
 EOF
 fi
 
