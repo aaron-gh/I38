@@ -460,7 +460,7 @@ if [[ $dex -eq 0 ]]; then
     echo 'exec --no-startup-id dex --autostart --environment i3'
 else
     echo '# Startup applications'
-    echo 'exec clipster -d'
+    echo 'exec --no-startup-id clipster -d'
     echo 'exec orca'
 fi)
 
