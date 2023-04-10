@@ -456,7 +456,7 @@ if [[ -x "/usr/lib/notification-daemon-1.0/notification-daemon" ]]; then
 fi
 # Work around for weird Void Linux stuff.
 if [[ -x "/usr/libexec/notification-daemon" ]]; then
-    echo 'exec_always --no-startup-id /usr/libexec/notification -r'
+    echo 'exec_always --no-startup-id /usr/libexec/notification-daemon -r'
 fi
 if [[ $dex -eq 0 ]]; then
     echo '# Start XDG autostart .desktop files using dex. See also'
