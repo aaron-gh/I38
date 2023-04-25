@@ -367,6 +367,15 @@ bindsym Control+Shift+F9 move container to workspace number \$ws9, exec spd-say 
 bindsym Control+Shift+F10 move container to workspace number \$ws10, exec spd-say -P important -Cw "moved to workspace 10"
 
 
+# A mode that will pass all keys except $mod+shift+backspace to the current application.
+# Use $mod+shift+backspace to exit the mode.
+bindsym $mod+shift+BackSpace mode "bypass"
+mode "bypass" {
+# Exit bypass mode.
+bindsym $mod+Shift+BackSpace mode "default"
+}
+
+
 EOF
 
 # Create ratpoison mode if requested.

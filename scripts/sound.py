@@ -14,10 +14,12 @@ def on_new_window(self,i3):
 
 def on_mode(self,event):
     mode= event.change
-    if mode == 'default':
-        system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 reverse &')
-    else:
+    if mode == 'ratpoison':
             system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 &')
+    elif mode == 'bypass':
+        system('play -nqV0 synth .1 saw 700 saw 1200 delay 0 .04 remix - norm -6')
+    else:
+        system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 reverse &')
 
 def on_workspace_focus(self,i3):
     #system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 &')
