@@ -18,8 +18,10 @@ def on_mode(self,event):
             system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 &')
     elif mode == 'bypass':
         system('play -nqV0 synth .1 saw 700 saw 1200 delay 0 .04 remix - norm -6')
-    else:
+    elif mode == 'default':
         system('play -qV0 "|sox -np synth .07 sq 400" "|sox -np synth .5 sq 800" fade h 0 .5 .5 norm -20 reverse &')
+    else:
+        system('play -n synth 0.05 pluck F3 norm -8 : synth 0.05 pluck C4 norm -8 : synth 0.05 pluck F4 norm -8 : synth 0.05 pluck C5 norm -8')
 
 def on_workspace_focus(self,i3):
     #system('play -qnV0 synth pi fade 0 .25 .15 pad 0 1 reverb overdrive riaa norm -8 speed 1 &')
