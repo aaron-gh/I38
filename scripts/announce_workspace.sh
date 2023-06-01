@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 
-workSpace="$(i3-msg -t get_workspaces \
-  | jq '.[] | select(.focused==true).name' \
-  | cut -d"\"" -f2)"
+path="$(readlink -f $0)"
+path="${path%/*/*}"
+path="${path##*/}"
+if [[ "$path" == "i3" ]]; then
+    workSpace="$(i3-msg -t get_workspaces \
+        | jq '.[] | select(.focused==true).name' \
+        | cut -d"\"" -f2)"
+else
+    workSpace="$(swaymsg -t get_workspaces \
+        | jq '.[] | select(.focused==true).name' \
+        | cut -d"\"" -f2)"
+fi
 left=9
 right=0
 msg="Workspace ${workSpace}"
