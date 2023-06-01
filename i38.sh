@@ -6,6 +6,7 @@
 
 i3Path="${XDG_CONFIG_HOME:-$HOME/.config}/i3"
 i3msg="i3-msg"
+sensibleTerminal="i3-sensible-terminal"
 # Dialog accessibility
 export DIALOGOPTS='--no-lines --visit-items'
 
@@ -147,6 +148,7 @@ while getopts "${args}" i ; do
         s)
             i3msg="swaymsg"
             i3Path="${XDG_CONFIG_HOME:-$HOME/.config}/sway"
+            sensibleTerminal="sway --sensible-terminal"
         ;;
         u) update_scripts;;
         x) write_xinitrc ;&
@@ -302,7 +304,7 @@ bindsym XF86AudioStop exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2
 bindsym XF86AudioNext exec --no-startup-id play -qV0 "| sox -np synth 0.03 sin 2000 pad 0 .02" "| sox -np synth 0.03 sin 2000" norm 1.0 vol 0.4 & ${i3Path}/scripts/music_controler.sh next
 
 # start a terminal
-bindsym \$mod+Return exec i3-sensible-terminal
+bindsym \$mod+Return exec $sensibleTerminal
 
 # kill focused window
 bindsym \$mod+F4 kill
@@ -386,7 +388,7 @@ mode "ratpoison" {
 # I38 help bound to ?
 bindsym Shift+slash exec ${i3Path}/scripts/i38-help.sh, mode "default"
 # Terminal emulator bound to c
-bindsym c exec i3-sensible-terminal, mode "default"
+bindsym c exec $sensibleTerminal
 # Text editor bound to e
 bindsym e exec $textEditor, mode "default"
 # File browser bound to f
