@@ -13,4 +13,11 @@ id="$(yad --title "I38" --list --separator "" --column "id" --column "Select Win
 if [[ -z "${id}" ]]; then
     exit 0
 fi
-i3-msg \[id="${id}"\] focus
+path="$(readlink -f $0)"
+path="${path%/*/*}"
+path="${path##*/}"
+if [[ "$path" == "i3" ]]; then
+    i3-msg \[id="${id}"\] focus
+else
+    swaymsg \[id="${id}"\] focus
+fi
