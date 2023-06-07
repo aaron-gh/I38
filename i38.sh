@@ -226,6 +226,11 @@ else
     fileBrowser="${programList/#-/}"
 fi
 fileBrowser="$(command -v $fileBrowser)"
+# Auto mount removable media
+udiskie=1
+if command -v udiskie &> /dev/null ; then
+    export udiskie=$(yesno "Would you like removable drives to  automatically mount when plugged in?")
+fi
 # Auto start with dex
 dex=1
 if command -v dex &> /dev/null ; then
@@ -461,6 +466,9 @@ $(if [[ $sounds -eq 0 ]]; then
 fi
 if [[ $brlapi -eq 0 ]]; then
     echo 'exec --no-startup-id xbrlapi --quiet'
+fi
+if [[ $udiskie -eq 0 ]]; then
+    echo 'exec --no-startup-id udiskie'
 fi
 if [[ -x "/usr/lib/notification-daemon-1.0/notification-daemon" ]]; then
     echo 'exec_always --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon -r'
