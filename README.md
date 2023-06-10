@@ -28,6 +28,7 @@ An uppercase I looks like a 1, 3 from i3, and 8 because the song [We Are 138](ht
 - sgtk-menu: for applications menu
 - sox: for sounds.
 - transfersh: [optional] for file sharing GUI
+- udiskie: [optional] for automatically mounting removable storage
 - xclip: Clipboard support
 - yad: For screen reader accessible dialogs
 
