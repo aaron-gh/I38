@@ -393,7 +393,7 @@ mode "ratpoison" {
 # I38 help bound to ?
 bindsym Shift+slash exec ${i3Path}/scripts/i38-help.sh, mode "default"
 # Terminal emulator bound to c
-bindsym c exec $sensibleTerminal
+bindsym c exec $sensibleTerminal, mode "default"
 # Text editor bound to e
 bindsym e exec $textEditor, mode "default"
 # File browser bound to f
