@@ -19,6 +19,6 @@ if [[ ${#brightness} -lt 1 ]]; then
 fi
 
 xrandr --output ${screenName} --brightness ${brightness%%|*} &&
-    spd-say -P important -Cw "Screen set to ${brightness##*|}."
+    spd-say -P important -Cw "Screen set to ${brightness#*|}."
 
 exit 0
