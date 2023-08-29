@@ -174,9 +174,26 @@ while [[ "$escapeKey" == "$mod" ]]; do
 done
 # Volume jump
 volumeJump=$(rangebox "How much should pressing the volume keys change the volume?" 1 15 5)
+# Email client
+unset programList
+for i in betterbird evolution thunderbird ; do
+    if command -v ${i/#-/} &> /dev/null ; then
+        if [ -n "$programList" ]; then
+            programList="$programList $i"
+        else
+            programList="$i"
+        fi
+    fi
+done
+if [ "$programList" != "${programList// /}" ]; then
+    emailClient="$(menulist "Email client:" $programList)"
+else
+    emailClient="${programList/#-/}"
+fi
+emailClient="$(command -v $emailClient)"
 # Web browser
 unset programList
-for i in brave chromium epiphany firefox google-chrome-stable midori seamonkey ; do
+for i in brave chromium epiphany firefox google-chrome-stable microsoft-edge microsoft-edge-beta microsoft-edge-dev midori seamonkey ; do
     if command -v ${i/#-/} &> /dev/null ; then
         if [ -n "$programList" ]; then
             programList="$programList $i"
@@ -398,6 +415,8 @@ bindsym c exec $sensibleTerminal, mode "default"
 bindsym e exec $textEditor, mode "default"
 # File browser bound to f
 bindsym f exec $fileBrowser, mode "default"
+# Email client bound to \$mod+e
+bindsym \$mod+e exec $emailClient, mode "default"
 # Web browser bound to w
 bindsym w exec $webBrowser, mode "default"
 # Kill window bound to k
