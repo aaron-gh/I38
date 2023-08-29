@@ -415,6 +415,10 @@ $(if command -v pidgin &> /dev/null ; then
     echo "# p bound to pidgin"
     echo "bindsym p exec $(command -v pidgin), mode \"default\""
 fi)
+$(if command -v xrandr &> /dev/null ; then
+    echo "# alt+s bound to brightness control"
+    echo "bindsym \$mod+s exec --no-startup-id ${i3Path}/scripts/screen_controller.sh"
+fi)
 $(if command -v transfersh &> /dev/null ; then
     echo "# t bound to share file with transfer.sh"
     echo 'bindsym t exec bash -c '"'"'fileName="$(yad --title "I38 Upload File" --file)" && url="$(transfersh "${fileName}" | tee >(yad --title "I38 - Uploading ${fileName##*/} ..." --progress --pulsate --auto-close))" && echo "${url#*saved at: }" | tee >(yad --title "I38 - Upload URL" --show-cursor --show-uri --button yad-close --sticky --text-info) >(xclip -selection clipboard)'"', mode \"default\""
