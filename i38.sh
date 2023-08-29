@@ -417,7 +417,7 @@ $(if command -v pidgin &> /dev/null ; then
 fi)
 $(if command -v xrandr &> /dev/null ; then
     echo "# alt+s bound to brightness control"
-    echo "bindsym \$mod+s exec --no-startup-id ${i3Path}/scripts/screen_controller.sh"
+    echo "bindsym \$mod+s exec --no-startup-id ${i3Path}/scripts/screen_controller.sh, mode \"default\""
 fi)
 $(if command -v transfersh &> /dev/null ; then
     echo "# t bound to share file with transfer.sh"
