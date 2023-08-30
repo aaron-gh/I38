@@ -20,6 +20,7 @@ An uppercase I looks like a 1, 3 from i3, and 8 because the song [We Are 138](ht
 - clipster: clipboard manager
 - jq: for getting the current workspace
 - libnotify: For sending notifications
+- lxsession: For policykit authentication agent.
 - notification-daemon: To handle notifications
 - ocrdesktop: For getting contents of the current window with OCR.
 - pamixer: for the mute-unmute script
