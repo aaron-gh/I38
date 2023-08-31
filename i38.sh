@@ -25,6 +25,105 @@ if [[ -n "${missing}" ]]; then
     exit 1
 fi
 
+keyboard_menu() {
+    keyboardMenu=("us" "USA"
+        "ad" "Andorra"
+        "af" "Afghanistan"
+        "ara" "Arabic"
+        "al" "Albania"
+        "am" "Armenia"
+        "az" "Azerbaijan"
+        "by" "Belarus"
+        "be" "Belgium"
+        "bd" "Bangladesh"
+        "in" "India"
+        "ba" "Bosnia and Herzegovina"
+        "br" "Brazil"
+        "bg" "Bulgaria"
+        "ma" "Morocco"
+        "mm" "Myanmar"
+        "ca" "Canada"
+        "cd" "Congo, Democratic Republic of the"
+        "cn" "China"
+        "hr" "Croatia"
+        "cz" "Czechia"
+        "dk" "Denmark"
+        "nl" "Netherlands"
+        "bt" "Bhutan"
+        "ee" "Estonia"
+        "ir" "Iran"
+        "iq" "Iraq"
+        "fo" "Faroe Islands"
+        "fi" "Finland"
+        "fr" "France"
+        "gh" "Ghana"
+        "gn" "Guinea"
+        "ge" "Georgia"
+        "de" "Germany"
+        "gr" "Greece"
+        "hu" "Hungary"
+        "is" "Iceland"
+        "il" "Israel"
+        "it" "Italy"
+        "jp" "Japan"
+        "kg" "Kyrgyzstan"
+        "kh" "Cambodia"
+        "kz" "Kazakhstan"
+        "la" "Laos"
+        "latam" "Latin American"
+        "lt" "Lithuania"
+        "lv" "Latvia"
+        "mao" "Maori"
+        "me" "Montenegro"
+        "mk" "Macedonia"
+        "mt" "Malta"
+        "mn" "Mongolia"
+        "no" "Norway"
+        "pl" "Poland"
+        "pt" "Portugal"
+        "ro" "Romania"
+        "ru" "Russia"
+        "rs" "Serbia"
+        "si" "Slovenia"
+        "sk" "Slovakia"
+        "es" "Spain"
+        "se" "Sweden"
+        "ch" "Switzerland"
+        "sy" "Syria"
+        "tj" "Tajikistan"
+        "lk" "Sri Lanka"
+        "th" "Thailand"
+        "tr" "Turkey"
+        "tw" "Taiwan"
+        "ua" "Ukraine"
+        "gb" "United Kingdom"
+        "uz" "Uzbekistan"
+        "vn" "Vietnam"
+        "kr" "Korea, Republic of"
+        "nec_vndr/jp" "Japan (PC-98xx Series)"
+        "ie" "Ireland"
+        "pk" "Pakistan"
+        "mv" "Maldives"
+        "za" "South Africa"
+        "epo" "Esperanto"
+        "np" "Nepal"
+        "ng" "Nigeria"
+        "et" "Ethiopia"
+        "sn" "Senegal"
+        "brai" "Braille"
+        "tm" "Turkmenistan"
+        "ml" "Mali"
+        "tz" "Tanzania"
+    )
+    dialog --title "I38" \
+        --backtitle "Use the arrow keys to find the option you want, and enter to select it. When you are finished selecting layouts, use right arrow to find \"Done\" and press enter." \
+        --clear \
+        --cancel-label "Done" \
+        --no-tags \
+        --menu "Select Keyboard Layout" 0 0 0 "${keyboardMenu[@]}" --stdout
+    return $?
+}
+
 menulist() {
     # Args: List of items for menu.
     # returns: selected tag
@@ -38,7 +137,7 @@ menulist() {
         --backtitle "Use the arrow keys to find the option you want, and enter to select it." \
         --clear \
         --no-tags \
-        --menu "$menuText" 0 0 0 ${menuList[@]} --stdout
+        --menu "$menuText" 0 0 0 "${menuList[@]}" --stdout
     return $?
 } 
 
@@ -172,6 +271,13 @@ while [[ "$escapeKey" == "$mod" ]]; do
         dialog --title "I38" --msgbox "Ratpoison and mod key cannot be the same key." -1 -1
     fi
 done
+# Multiple keyboard layouts
+if [[ $(yesno "Do you want to use multiple keyboard layouts?") -eq 0 ]]; then
+    unset kbd
+    while : ; do
+        kbd+=("$(keyboard_menu)") || break
+    done
+fi
 # Volume jump
 volumeJump=$(rangebox "How much should pressing the volume keys change the volume?" 1 15 5)
 # Email client
@@ -401,6 +507,11 @@ bindsym $mod+Shift+BackSpace mode "default"
 
 
 EOF
+
+# Multiple keyboard layouts if requested.
+if [[ ${#kbd[@]} -gt 1 ]]; then
+    echo "bindsym Mod4+space exec ${i3Path}/scripts/keyboard.sh cycle ${kbd[@]}" >> ${i3Path}/config
+fi
 
 # Create ratpoison mode if requested.
 if [[ -n "${escapeKey}" ]]; then
