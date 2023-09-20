@@ -26,6 +26,7 @@ An uppercase I looks like a 1, 3 from i3, and 8 because the song [We Are 138](ht
 - pamixer: for the mute-unmute script
 - playerctl: music controls
 - python-i3ipc: for sounds etc.
+- remind: [optional] for reminder notifications, Requires notify-send.
 - sgtk-menu: for applications menu
 - sox: for sounds.
 - transfersh: [optional] for file sharing GUI
