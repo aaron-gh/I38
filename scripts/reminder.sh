@@ -129,12 +129,13 @@ while : ; do
             # Handle "Add Reminder" button click
             add_reminder
             ;;
-        1)
-            # Handle "Close" button click
+        1|252)
+            # Handle "Close" button click and escape.
             exit 0
             ;;
         2)
             # View reminders
             view_reminders
+        ;;
     esac
 done
