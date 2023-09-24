@@ -536,6 +536,10 @@ $(if command -v mumble &> /dev/null ; then
     echo "# Mumble bound to m"
     echo "bindsym m exec $(command -v mumble), mode \"default\""
 fi)
+$(if command -v remind &> /dev/null ; then
+    echo "# Reminders bound to r"
+    echo "bindsym r exec --no-startup-id ${i3Path}/scripts/reminder.sh, mode \"default\""
+fi)
 $(if command -v ocrdesktop &> /dev/null ; then
     echo "# OCR desktop bound to print screen alternative \$mod+r"
     echo "bindsym Print exec $(command -v ocrdesktop) -b, mode \"default\""
