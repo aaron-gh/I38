@@ -8,9 +8,37 @@ message() {
         yad --form --selectable-labels --title "I38 - Reminder" --field="${*}":lbl --button="Close!gtk-ok":0
 }
 
-add_reminder() {
+add_custom_reminder() {
     info="$(yad --form --selectable-labels  \
-        --title "I38 - New Reminder" \
+        --title "I38 - New Custom Reminder" \
+        --field="Comment for ~/.reminders file":lbl "" \
+        --field="Reminder Comment" "" \
+        --field="Reminder entry. Remember for notifications, it must ccontain the +5 after the time and the %2. at the end of the MSG.":lbl "" \
+        --field="Reminder" "REM  at  +5 MSG  %2.")"
+    if [[ $? -eq 1 || $? -eq 252 ]]; then
+        return
+    fi
+    while [[ $info =~ \|\| ]]; do
+        info="${info//||/|}"
+    done
+    info="${info#|#}"
+    # Get information for reminder into an array
+    IFS='|' read -a reminder <<< $info
+    if [[ "${reminder[0]}" != "# " ]]; then
+        echo "# ${reminder[0]}" >> ~/.reminders
+    fi
+    if [[ "${reminder[1]}" != "REM  at  +5 MSG  %2." ]]; then
+    echo "${reminder[1]}" >> ~/.reminders
+    message "Custom reminder added."
+    else
+    error "No reminder text entered, No action taken."
+    fi
+}
+
+
+add_weekly_reminder() {
+    info="$(yad --form --selectable-labels  \
+        --title "I38 - New Weekly Reminder" \
         --field="Reminder Text" "" \
         --field="Select Days":lbl "" \
         --field="Sunday":chk "FALSE" \
@@ -121,13 +149,14 @@ while : ; do
     action=$(yad --title "I38 - Reminders" --form \
         --button="_Add Reminder!gtk-ok":0 \
         --button="_View Reminders!gtk-info":2 \
+        --button="Add Custom Reminder!gtk-edit":3 \
         --button="Close!gtk-cancel":1 \
         --separator="")
                                                                                                                                                                           
     case $? in
         0)
-            # Handle "Add Reminder" button click
-            add_reminder
+            # Handle "Add Weekly Reminder" button click
+            add_weekly_reminder
             ;;
         1|252)
             # Handle "Close" button click and escape.
@@ -137,5 +166,9 @@ while : ; do
             # View reminders
             view_reminders
         ;;
+        3)
+            # Handle "Add Custom Reminder" button click
+            add_custom_reminder
+            ;;
     esac
 done
