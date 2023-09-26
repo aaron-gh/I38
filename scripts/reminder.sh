@@ -94,8 +94,12 @@ add_weekly_reminder() {
 }
 
 view_reminders() {
-mapfile -t lines < ~/.reminders
-                                                                                                                                                                          
+    if ! [[ -r ~/.reminders ]]; then
+        error "No reminders found."
+        return
+    fi
+
+    mapfile -t lines < ~/.reminders
     # Create an empty array to store cleaned-up reminders
     yadMenu=()
                                                                                                                                                                           
@@ -143,6 +147,12 @@ mapfile -t lines < ~/.reminders
 if ! command -v remind &> /dev/null ; then
     error "Please install remind. For notifications, please make sure to have notification-daemon and notify-send as well. Run i38.sh to regenerate your i3 config after the needed components are installed."
     exit 1
+fi
+
+if [[ $# -ne 0 ]]; then
+    sox -ndqV0 synth .1 tri 600 norm -9 pad .05 repeat
+    notify-send "$*"
+    exit 0
 fi
 
 while : ; do
