@@ -94,8 +94,12 @@ add_weekly_reminder() {
 }
 
 view_reminders() {
-mapfile -t lines < ~/.reminders
-                                                                                                                                                                          
+    if ! [[ -r ~/.reminders ]]; then
+        error "No reminders found."
+        return
+    fi
+
+    mapfile -t lines < ~/.reminders
     # Create an empty array to store cleaned-up reminders
     yadMenu=()
                                                                                                                                                                           
