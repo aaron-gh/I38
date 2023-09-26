@@ -12,6 +12,9 @@ i3 = i3ipc.Connection()
 def on_new_window(self,i3):
     system('play -n synth .25 sin 440:880 sin 480:920 remix - norm -3 pitch -500 &')
 
+def on_close_window(self,i3):
+    system('play -n synth .25 sin 880:440 sin 920:480 remix - norm -3 pitch -500 &')
+
 def on_mode(self,event):
     mode= event.change
     if mode == 'ratpoison':
@@ -42,6 +45,7 @@ def on_fullscreen(self,i3):
 i3 = i3ipc.Connection()
 
 i3.on('window::new', on_new_window)
+i3.on('window::close', on_close_window)
 i3.on(Event.MODE, on_mode)
 i3.on('workspace::focus', on_workspace_focus)
 i3.on('window::move', on_workspace_move)
