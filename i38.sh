@@ -619,7 +619,7 @@ if [[ -x "/usr/libexec/notification-daemon" ]]; then
     echo 'exec_always --no-startup-id /usr/libexec/notification-daemon -r'
 fi
 if command -v remind &> /dev/null && command -v notify-send &> /dev/null ; then
-    echo "exec_always --no-startup-id $(command -v remind) -z '-k:notify-send %s &' ${HOME}/.reminders < /dev/null > /dev/null 2>&1"
+    echo "exec_always --no-startup-id $(command -v remind) -z '-k:${HOME}/.config/i3/scripts/reminder.sh %s &' ${HOME}/.reminders < /dev/null > /dev/null 2>&1"
 fi
 if [[ $dex -eq 0 ]]; then
     echo '# Start XDG autostart .desktop files using dex. See also'

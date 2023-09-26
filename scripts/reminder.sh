@@ -145,6 +145,12 @@ if ! command -v remind &> /dev/null ; then
     exit 1
 fi
 
+if [[ $# -ne 0 ]]; then
+    sox -ndqV0 synth .1 tri 600 norm -9 pad .05 repeat
+    notify-send "$*"
+    exit 0
+fi
+
 while : ; do
     action=$(yad --title "I38 - Reminders" --form \
         --button="_Add Reminder!gtk-ok":0 \
