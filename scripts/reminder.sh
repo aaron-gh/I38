@@ -36,6 +36,53 @@ add_custom_reminder() {
 }
 
 
+add_monthly_reminder() {
+    info="$(yad --form --selectable-labels  \
+        --title "I38 - New Monthly Reminder" \
+        --field="For dates over 28, some months may be skipped. If you want to be sure of the last day of the month, check the last day of month box.":lbl "" \
+        --field="Reminder Text" "" \
+        --field="Select Date:":num '1!1..31' \
+        --field="Select Hour:":num '1!1..12' \
+        --field="Select Minute:":num '0!0..59' \
+        --field="Select AM or PM":cb 'AM!PM' \
+        --field="Last day of month":chk "FALSE" \
+        --button="Cancel:1" \
+        --button="Create Reminder:0")"
+
+    # Properly handle window close events.
+    if [[ $? -eq 1 || $? -eq 252 ]]; then
+        return
+    fi
+
+    # Get information for reminder into an array
+    IFS='|' read -a reminder <<< $info
+
+    # Fix time and date to be 2 digits.
+    [[ ${#reminder[2]} -eq 1 ]] && reminder[2]="0${reminder[2]}"
+    [[ ${#reminder[3]} -eq 1 ]] && reminder[3]="0${reminder[3]}"
+    [[ ${#reminder[4]} -eq 1 ]] && reminder[4]="0${reminder[4]}"
+
+    # Make sure we have reminder text
+    if [[ ${#reminder[1]} -lt 3 ]]; then
+    error "No reminder text given, addition canceled."
+    return
+    fi
+    if [[ "${reminder[6]}" == "FALSE" ]]; then
+    reminderEntry="REM ${reminder[2]} "
+    else
+    reminderEntry="REM 1 -1 "
+    fi
+    reminderEntry+="AT ${reminder[3]}:${reminder[4]}${reminder[5]} +5 REPEAT monthly MSG ${reminder[1]} %2."
+    echo "# Added by I38." >> ~/.reminders
+    echo "$reminderEntry" >> ~/.reminders
+    if [[ -N ~/.reminders ]]; then
+        message "Reminder added."
+    else
+        error "Something went wrong. The reminder was not added."
+    fi
+}
+
+
 add_weekly_reminder() {
     info="$(yad --form --selectable-labels  \
         --title "I38 - New Weekly Reminder" \
@@ -54,10 +101,19 @@ add_weekly_reminder() {
         --button="Cancel:1" \
         --button="Create Reminder:0")"
 
+    # Properly handle window close events.
+    if [[ $? -eq 1 || $? -eq 252 ]]; then
+        return
+    fi
+
     # Get information for reminder into an array
     IFS='|' read -a reminder <<< $info
 
-    # Change checked days into their name.
+    # Fix time to be 2 digits.
+    [[ ${#reminder[9]} -eq 1 ]] && reminder[9]="0${reminder[9]}"
+    [[ ${#reminder[10]} -eq 1 ]] && reminder[10]="0${reminder[10]}"
+
+# Change checked days into their name.
     reminder[2]="${reminder[2]/TRUE/Sun}"
     reminder[3]="${reminder[3]/TRUE/Mon}"
     reminder[4]="${reminder[4]/TRUE/Tue}"
@@ -92,6 +148,7 @@ add_weekly_reminder() {
         error "Something went wrong. The reminder was not added."
     fi
 }
+
 
 view_reminders() {
     if ! [[ -r ~/.reminders ]]; then
@@ -157,9 +214,10 @@ fi
 
 while : ; do
     action=$(yad --title "I38 - Reminders" --form \
-        --button="_Add Reminder!gtk-ok":0 \
         --button="_View Reminders!gtk-info":2 \
-        --button="Add Custom Reminder!gtk-edit":3 \
+        --button="_Add Weekly Reminder!gtk-ok":0 \
+        --button="Add Monthly Reminder!gtk-ok":3 \
+        --button="Add Custom Reminder!gtk-edit":4 \
         --button="Close!gtk-cancel":1 \
         --separator="")
                                                                                                                                                                           
@@ -177,6 +235,10 @@ while : ; do
             view_reminders
         ;;
         3)
+            # Handle "Add Monthly Reminder" button click
+            add_monthly_reminder
+            ;;
+        4)
             # Handle "Add Custom Reminder" button click
             add_custom_reminder
             ;;
