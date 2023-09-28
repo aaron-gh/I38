@@ -19,6 +19,7 @@ An uppercase I looks like a 1, 3 from i3, and 8 because the song [We Are 138](ht
 - dex: [optional] Alternative method for auto starting applications.
 - clipster: clipboard manager
 - jq: for getting the current workspace
+- libcanberra: [optional]To play the desktop login sound.
 - libnotify: For sending notifications
 - lxsession: For policykit authentication agent.
 - notification-daemon: To handle notifications
@@ -26,7 +27,7 @@ An uppercase I looks like a 1, 3 from i3, and 8 because the song [We Are 138](ht
 - pamixer: for the mute-unmute script
 - playerctl: music controls
 - python-i3ipc: for sounds etc.
-- remind: [optional] for reminder notifications, Requires notify-daemon and notify-send for automatic reminders.
+- remind: [optional]For reminder notifications, Requires notify-daemon and notify-send for automatic reminders.
 - sgtk-menu: for applications menu
 - sox: for sounds.
 - transfersh: [optional] for file sharing GUI
