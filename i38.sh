@@ -529,8 +529,10 @@ bindsym Shift+slash exec ${i3Path}/scripts/i38-help.sh, mode "default"
 bindsym c exec $sensibleTerminal, mode "default"
 # Text editor bound to e
 bindsym e exec $textEditor, mode "default"
-# File browser bound to f
-bindsym f exec $fileBrowser, mode "default"
+$(if [[ ${#fileBrowser} -gt 3 ]]; then
+    echo "# File browser bound to f"
+    echo "bindsym f exec $fileBrowser, mode \"default\""
+fi)
 # Email client bound to \$mod+e
 bindsym \$mod+e exec $emailClient, mode "default"
 # Web browser bound to w
