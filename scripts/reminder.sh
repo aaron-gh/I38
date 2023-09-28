@@ -43,8 +43,8 @@ add_daily_reminder() {
         --field="Select Hour:":num '1!1..12' \
         --field="Select Minute:":num '0!0..59' \
         --field="Select AM or PM":cb 'AM!PM' \
-        --button="Cancel:1" \
-        --button="Create Reminder:0")"
+        --button="Cancel~gtk-cancel:1" \
+        --button="Create Reminder!gtk-ok:0")"
 
     # Properly handle window close events.
     if [[ $? -eq 1 || $? -eq 252 ]]; then
@@ -84,8 +84,8 @@ add_monthly_reminder() {
         --field="Select Minute:":num '0!0..59' \
         --field="Select AM or PM":cb 'AM!PM' \
         --field="Last day of month":chk "FALSE" \
-        --button="Cancel:1" \
-        --button="Create Reminder:0")"
+        --button="Cancel!gtk-cancel:1" \
+        --button="Create Reminder!gtk-ok:0")"
 
     # Properly handle window close events.
     if [[ $? -eq 1 || $? -eq 252 ]]; then
@@ -136,8 +136,8 @@ add_weekly_reminder() {
         --field="Select Hour:":num '1!1..12' \
         --field="Select Minute:":num '0!0..59' \
         --field="Select AM or PM":cb 'AM!PM' \
-        --button="Cancel:1" \
-        --button="Create Reminder:0")"
+        --button="Cancel!gtk-cancel:1" \
+        --button="Create Reminder!gtk-ok:0")"
 
     # Properly handle window close events.
     if [[ $? -eq 1 || $? -eq 252 ]]; then
@@ -214,7 +214,7 @@ view_reminders() {
     # Display the reminders
     reminder="$(yad --list --title "I38 - Reminders" --text "Current reminders:" \
         --column "Reminder" "${yadMenu[@]}" \
-        --button="Close:1" --button="Delete:0" --response=1)"
+        --button="Close!gtk-ok:1" --button="Delete!gtk-delete:0" --response=1)"
         if [[ $? -ne 0 ]]; then
             return
         fi
@@ -269,9 +269,9 @@ while : ; do
     action=$(yad --title "I38 - Reminders" --form \
         --button="_View Today's Reminders!gtk-info":2 \
         --button="_View All Reminders!gtk-info":3 \
-        --button="_Add Daily Reminder!gtk-ok":0 \
-        --button="_Add Weekly Reminder!gtk-ok":4 \
-        --button="Add Monthly Reminder!gtk-ok":5 \
+        --button="_Add Daily Reminder!gtk-edit":0 \
+        --button="_Add Weekly Reminder!gtk-edit":4 \
+        --button="Add Monthly Reminder!gtk-edit":5 \
         --button="Add Custom Reminder!gtk-edit":6 \
         --button="Close!gtk-cancel":1 \
         --separator="")
