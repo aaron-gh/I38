@@ -39,6 +39,7 @@ An uppercase I looks like a 1, 3 from i3, and 8 because the song [We Are 138](ht
 
 I38 will try to detect your browser, file manager, and web browser and present you with a list of options to bind to their launch keys. It will also create bindings for pidgin and mumble if they are installed. To use the bindings, press your ratpoison mode key which is set when you run the i38.sh script. next, press the binding for the application you want; w for web browser, e for text editor, f for file manager, m for mumble, etc. To learn all the bindings, find and read the mode ratpoison section of ~/.config/i3/config.
 The login sound uses the GTK sound theme. Configure this using GTK configuration files or gsettings. Replace "name" with the name of the theme you want to use.
+Note that if you enable all sound events as shown below, you'll also hear GTK sounds when moving around menus, buttons, etc, if the sound theme has sounds for those events.
 To configure the theme name with gsettings, do as follows.
     gsettings set org.gnome.desktop.sound theme-name name
 If you'd like all sound types enabled:
