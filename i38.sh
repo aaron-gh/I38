@@ -366,6 +366,11 @@ brlapi=1
 brlapi=$(yesno "Do you want to use a braille display with Orca?")
 sounds=1
 sounds=$(yesno "Do you want window event sounds?")
+# Play Login Sound
+loginSound=1
+if command -v canberra-gtk-play &> /dev/null ; then
+    export loginSound=$(yesno "Would you like to play the default desktop-login sound according to your GTK sound theme upon login?")
+fi
 
 if [[ -d "${i3Path}" ]]; then
     yesno "This will replace your existing configuration at ${i3Path}. Do you want to continue?" || exit 0
@@ -601,6 +606,9 @@ cat << EOF >> ${i3Path}/config
 # Auto start section
 $(if [[ $sounds -eq 0 ]]; then
     echo "exec_always --no-startup-id ${i3Path}/scripts/sound.py"
+fi
+if [[ $loginSound -eq 0 ]]; then
+    echo 'exec --no-startup-id canberra-gtk-play -i desktop-login'
 fi
 if [[ $brlapi -eq 0 ]]; then
     echo 'exec --no-startup-id xbrlapi --quiet'
