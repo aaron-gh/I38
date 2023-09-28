@@ -261,7 +261,7 @@ fi
 
 if [[ $# -ne 0 ]]; then
     sox -ndqV0 synth .1 tri 600 norm -9 pad .05 repeat
-    notify-send "$*"
+    notify-send "$*" --expire-time=30000
     exit 0
 fi
 
