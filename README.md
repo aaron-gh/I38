@@ -53,14 +53,14 @@ If you'd like all sound types enabled:
 
     gsettings set org.gnome.desktop.sound event-sounds true
 
-To configure with a config file, the file is ~/.config/gtk-3.0/settings.ini
-```ini
-[Settings]
-gtk-enable-event-sounds=1
-gtk-enable-input-feedback-sounds=1
-gtk-sound-theme-name=name
-gtk-modules=canberra-gtk-module
-```
+To configure with a config file, edit or create ~/.config/gtk-3.0/settings.ini
+
+    [Settings]
+    gtk-enable-event-sounds=1
+    gtk-enable-input-feedback-sounds=1
+    gtk-sound-theme-name=name
+    gtk-modules=canberra-gtk-module
+
 
 ## Usage:
 
