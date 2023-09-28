@@ -61,6 +61,12 @@ To configure with a config file, edit or create ~/.config/gtk-3.0/settings.ini
     gtk-sound-theme-name=name
     gtk-modules=canberra-gtk-module
 
+You can apply the same configuration to GTK2 appss. Create or edit  ~/.gtkrc-2.0
+
+    gtk-enable-event-sounds=1
+    gtk-enable-input-feedback-sounds=1
+    gtk-sound-theme-name=name
+    gtk-modules=canberra-gtk-module
 
 ## Usage:
 
