@@ -261,7 +261,20 @@ fi
 
 if [[ $# -ne 0 ]]; then
     sox -ndqV0 synth .1 tri 600 norm -9 pad .05 repeat
-    notify-send "$*" --expire-time=30000
+    notification="$*"
+    if [[ "${notification}" =~ "http" ]]; then
+        url="${notification##*http}"
+        url="${url%%[[:space:]]*}"
+        url="http${url}"
+        notification="${notification/${url}[[:space:]]/}"
+        url="${url%[[:space:].?!]}"
+    fi
+    if command -v xclip &> /dev/null && [[ "${#url}" -gt 3 ]]; then
+        echo "${url}" | xclip -selection clipboard
+        notify-send "${notification} The URL has been copied to the clipboard." --expire-time=30000
+    else
+        notify-send "${*}" --expire-time=30000
+    fi
     exit 0
 fi
 
