@@ -43,7 +43,7 @@ add_daily_reminder() {
         --field="Select Hour:":num '1!1..12' \
         --field="Select Minute:":num '0!0..59' \
         --field="Select AM or PM":cb 'AM!PM' \
-        --button="Cancel~gtk-cancel:1" \
+        --button="Cancel!gtk-cancel:1" \
         --button="Create Reminder!gtk-ok:0")"
 
     # Properly handle window close events.
