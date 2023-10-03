@@ -271,9 +271,9 @@ if [[ $# -ne 0 ]]; then
     fi
     if command -v xclip &> /dev/null && [[ "${#url}" -gt 3 ]]; then
         echo "${url}" | xclip -selection clipboard
-        notify-send "${notification} The URL has been copied to the clipboard." --expire-time=30000
+        notify-send --hint=int:transient:1 -t 500 -r 38 "${notification} The URL has been copied to the clipboard."
     else
-        notify-send "${*}" --expire-time=30000
+        notify-send --hint=int:transient:1 -t 500 -r 38 "${*}"
     fi
     exit 0
 fi
