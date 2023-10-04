@@ -8,6 +8,55 @@ message() {
         yad --form --selectable-labels --title "I38 - Reminder" --field="${*}":lbl --button="Close!gtk-ok":0
 }
 
+
+add_reminder() {
+    info="$(yad --form --selectable-labels  \
+        --title "I38 - New Reminder" \
+        --field="Comment for ~/.reminders file":lbl "" \
+        --field="Reminder Comment" "# Added by I38" \
+        --field="Enter date in yyyy-mm-dd format:":lbl "" \
+        --field="Date" "$(date '+%Y-%m-%d')" \
+        --field="Reminder text:":lbl "" \
+        --field="Reminder" "" \
+        --field="Select Hour:":num '1!1..12' \
+        --field="Select Minute:":num '0!0..59' \
+        --field="Select AM or PM":cb 'AM!PM' \
+        --button="Cancel!gtk-cancel:1" \
+        --button="Create Reminder!gtk-ok:0")"
+    if [[ $? -eq 1 || $? -eq 252 ]]; then
+        return
+    fi
+    while [[ $info =~ \|\| ]]; do
+        info="${info//||/|}"
+    done
+    info="${info#|#}"
+    # Get information for reminder into an array
+    IFS='|' read -a reminder <<< $info
+    # Fix time to be 2 digits.
+    [[ ${#reminder[3]} -eq 1 ]] && reminder[3]="0${reminder[3]}"
+    [[ ${#reminder[4]} -eq 1 ]] && reminder[4]="0${reminder[4]}"
+    # Check date format
+    if ! [[ "${reminder[1]}" =~ ^[2-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$ ]]; then
+        error "Invalid date format given, addition canceled."
+        return
+    fi
+    if [[ ${#reminder[2]} -lt 3 ]]; then
+    error "No reminder text given, addition canceled."
+    return
+    fi
+    # Add reminder
+    if [[ "${reminder[0]}" != "# " ]]; then
+        echo "# ${reminder[0]}" >> ~/.reminders
+    fi
+    echo "REM $(date -d "${reminder[1]}" '+%b %d %Y') AT ${reminder[3]}:${reminder[4]}${reminder[5]} +5 MSG ${reminder[2]} %2." >> ~/.reminders
+    if [[ -N ~/.reminders ]]; then
+        message "Reminder added."
+    else
+        error "Something went wrong. The reminder was not added."
+    fi
+}
+
+
 add_custom_reminder() {
     info="$(yad --form --selectable-labels  \
         --title "I38 - New Custom Reminder" \
@@ -280,41 +329,46 @@ fi
 
 while : ; do
     action=$(yad --title "I38 - Reminders" --form \
-        --button="_View Today's Reminders!gtk-info":2 \
-        --button="_View All Reminders!gtk-info":3 \
-        --button="_Add Daily Reminder!gtk-edit":0 \
-        --button="_Add Weekly Reminder!gtk-edit":4 \
-        --button="Add Monthly Reminder!gtk-edit":5 \
-        --button="Add Custom Reminder!gtk-edit":6 \
+        --button="_View Today's Reminders!gtk-info":3 \
+        --button="_View All Reminders!gtk-info":4 \
+        --button="_Add Reminder!gtk-edit":0 \
+        --button="_Add Daily Reminder!gtk-edit":2 \
+        --button="_Add Weekly Reminder!gtk-edit":5 \
+        --button="Add Monthly Reminder!gtk-edit":6 \
+        --button="Add Custom Reminder!gtk-edit":7 \
         --button="Close!gtk-cancel":1 \
         --separator="")
                                                                                                                                                                           
     case $? in
         0)
-            # Handle "Add Daily Reminder" button click
-            add_daily_reminder
+            # Single reminder
+            add_reminder
             ;;
         1|252)
             # Handle "Close" button click and escape.
             exit 0
             ;;
         2)
+            # Handle "Add Daily Reminder" button click
+            add_daily_reminder
+            ;;
+        3)
             # View today's reminders
             view_today
         ;;
-        3)
+        4)
             # View reminders
             view_reminders
         ;;
-        4)
+        5)
             # Handle "Add Weekly Reminder" button click
             add_weekly_reminder
             ;;
-        5)
+        6)
             # Handle "Add Monthly Reminder" button click
             add_monthly_reminder
             ;;
-        6)
+        7)
             # Handle "Add Custom Reminder" button click
             add_custom_reminder
             ;;
