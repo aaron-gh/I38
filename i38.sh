@@ -594,7 +594,7 @@ bindsym Shift+o exec $(command -v orca) --replace, mode "default"
 # reload the configuration file
 bindsym Control+semicolon exec bash -c '$i3msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."', mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Control+Shift+semicolon exec bash -c '$i3msg -t run_command restart && spd-say -P important -Cw "I3 restarted."', mode "default"
+bindsym Control+Shift+semicolon exec bash -c 'pgrep remind && killall remind;$i3msg -t run_command restart && spd-say -P important -Cw "I3 restarted."', mode "default"
 # Run dialog with exclamation 
 bindsym Shift+exclam exec ${i3Path}/scripts/run_dialog.sh, mode "default"
 # exit i3 (logs you out of your X session)
