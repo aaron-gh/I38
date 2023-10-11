@@ -637,6 +637,7 @@ if command -v remind &> /dev/null && command -v notify-send &> /dev/null ; then
     echo "exec_always --no-startup-id $(command -v remind) -z '-k:${HOME}/.config/i3/scripts/reminder.sh %s &' ${HOME}/.reminders < /dev/null > /dev/null 2>&1"
     touch ~/.reminders
 fi
+exec_always --no-startup-id ${i3Path}/scripts/sound.py
 if [[ $dex -eq 0 ]]; then
     echo '# Start XDG autostart .desktop files using dex. See also'
     echo '# https://wiki.archlinux.org/index.php/XDG_Autostart'
