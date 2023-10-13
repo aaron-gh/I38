@@ -15,7 +15,7 @@ An uppercase I looks like a 1, 3 from i3, and 8 because the song [We Are 138](ht
 ## Requirements
 
 - i3-wm: The i3 window manager.
-- acpi: [optional] for battery status. It will still work even without this package, but uses it if it is installed.
+- acpi: [optional] for battery status. It will still work even without this package, but uses it if it is installed. Required for the battery monitor with sound alerts.
 - dex: [optional] Alternative method for auto starting applications.
 - clipster: clipboard manager
 - jq: for getting the current workspace
