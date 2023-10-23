@@ -369,7 +369,7 @@ if [[ $dex -eq 0 ]]; then
 fi
 if command -v acpi &> /dev/null ; then
     batteryAlert=1
-    batteryAlert=$(yesno "Do you want to use a braille display with Orca?")
+    batteryAlert=$(yesno "Do you want low battery notifications?")
 fi
 brlapi=1
 brlapi=$(yesno "Do you want to use a braille display with Orca?")
