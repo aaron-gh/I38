@@ -304,7 +304,7 @@ fi
 emailClient="$(command -v $emailClient)"
 # Web browser
 unset programList
-for i in brave chromium epiphany firefox google-chrome-stable microsoft-edge microsoft-edge-beta microsoft-edge-dev midori seamonkey ; do
+for i in brave chromium epiphany firefox google-chrome-stable google-chrome-unstable microsoft-edge microsoft-edge-beta microsoft-edge-dev midori seamonkey ; do
     if command -v ${i/#-/} &> /dev/null ; then
         if [ -n "$programList" ]; then
             programList="$programList $i"
