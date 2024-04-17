@@ -598,7 +598,7 @@ bindsym Shift+o exec $(command -v orca) --replace, mode "default"
 # reload the configuration file
 bindsym Control+semicolon exec bash -c '$i3msg -t run_command reload && spd-say -P important -Cw "I38 Configuration reloaded."', mode "default"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Control+Shift+semicolon exec bash -c 'killall remind || true && $i3msg -t run_command restart && spd-say -P important -Cw "I3 restarted."', mode "default"
+bindsym Control+Shift+semicolon exec $i3msg -t run_command restart && spd-say -P important -Cw "I3 restarted.", mode "default"
 # Run dialog with exclamation 
 bindsym Shift+exclam exec ${i3Path}/scripts/run_dialog.sh, mode "default"
 # exit i3 (logs you out of your X session)
@@ -635,7 +635,7 @@ if [[ -x "/usr/libexec/notification-daemon" ]]; then
     echo 'exec_always --no-startup-id /usr/libexec/notification-daemon -r'
 fi
 if command -v remind &> /dev/null && command -v notify-send &> /dev/null ; then
-    echo "exec_always --no-startup-id $(command -v remind) -z '-k:${HOME}/.config/i3/scripts/reminder.sh %s &' ${HOME}/.reminders < /dev/null > /dev/null 2>&1"
+    echo "exec_always --no-startup-id ${i3Path}/scripts/launch_remind.sh"
     touch ~/.reminders
 fi
 if [[ $batteryAlert -eq 0 ]]; then
