@@ -627,7 +627,9 @@ fi
 if [[ $udiskie -eq 0 ]]; then
     echo 'exec --no-startup-id udiskie'
 fi
-if [[ -x "/usr/lib/notification-daemon-1.0/notification-daemon" ]]; then
+if [[ -x "/usr/lib/xfce4/notifyd/xfce4-notifyd" ]]; then
+    echo 'exec_always --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd'
+elif [[ -x "/usr/lib/notification-daemon-1.0/notification-daemon" ]]; then
     echo 'exec_always --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon -r'
 fi
 # Work around for weird Void Linux stuff.
