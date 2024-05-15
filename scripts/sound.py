@@ -10,10 +10,14 @@ i3 = i3ipc.Connection()
 
 
 def on_new_window(self,i3):
-    system('play -n synth .25 sin 440:880 sin 480:920 remix - norm -3 pitch -500 &')
+    if i3.container.name == 'xfce4-notifyd':
+        system('play -n synth .05 sq 1800 tri 2400 delay 0 .03 remix - repeat 2 echo .55 0.7 20 1 norm -12 &')
+    else:
+        system('play -n synth .25 sin 440:880 sin 480:920 remix - norm -3 pitch -500 &')
 
 def on_close_window(self,i3):
-    system('play -n synth .25 sin 880:440 sin 920:480 remix - norm -3 pitch -500 &')
+    if i3.container.name != 'xfce4-notifyd':
+        system('play -n synth .25 sin 880:440 sin 920:480 remix - norm -3 pitch -500 &')
 
 def on_mode(self,event):
     mode= event.change
